@@ -66,7 +66,7 @@
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>
                                             Edit</a>
-                                        <form action="{{ route('users.employers.delete', $police->id) }}" method="post">
+                                        <form action="{{ route('users.employers.delete', $employer->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button class="dropdown-item" type="submit"><i class="bx bx-trash me-1"></i>

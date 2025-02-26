@@ -20,8 +20,8 @@ class PoliceFactory extends Factory
         return [
             //
             'adress' => fake()->address(),
-            'tournnes' => fake()->biasednumberBetween(1, 10),
-            'id_card' => User::all()->random()->id_card,
+            'tournnes' => fake()->biasedNumberBetween(1, 10),
+            'id_card' => User::inRandomOrder()->first()->id_card, 
             'created_at' => now(),
         ];
     }

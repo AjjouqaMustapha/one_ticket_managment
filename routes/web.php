@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PoliceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketsController;
@@ -51,11 +52,15 @@ Route::prefix('admin')->group(function (){
     Route::delete('/dashboard/Employers/{id}',[UsersController::class, 'EmployersDelete'])->name('users.employers.delete')->middleware(['auth:admin']);
             /**-----------------------------end users-------------------------------------------- */
 
-    Route::get('/tickets',[TicketsController::class, 'Ticket'])->name('admin.ticket')->middleware(['auth:admin']);
     Route::get('/dashboard/Polices',[PoliceController::class, 'index'])->name('polices.index')->middleware(['auth:admin']);
     Route::delete('/dashboard/Polices/{id}',[PoliceController::class, 'destroy'])->name('polices.destroy')->middleware(['auth:admin']);
-
     Route::get('/dashboard/Polices/info/{id}',[PoliceController::class, 'show'])->name('polices.show')->middleware(['auth:admin']);
+
+    Route::get('/dashboard/Tickets',[IssueController::class, 'index'])->name('issue.index')->middleware(['auth:admin']);
+    Route::get('/dashboard/Tickets/{id}',[IssueController::class, 'detail'])->name('issue.detail')->middleware(['auth:admin']);
+
+
+
 
     /**-------------------------------End Dashboard---------------------------------------------- */
 

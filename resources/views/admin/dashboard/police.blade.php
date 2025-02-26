@@ -58,7 +58,7 @@
                         <th>Id</th>
                         <th>Adress</th>
                         <th>Tournnes</th>
-                        <th>Id card</th>
+                        <th>user Id card</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

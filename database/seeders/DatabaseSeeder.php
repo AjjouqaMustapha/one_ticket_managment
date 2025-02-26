@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Admin::factory()->count(10)->create();
         \App\Models\Employer::factory()->count(10)->create();
         \App\Models\Police::factory()->count(10)->create();
+        \App\Models\Issues::factory()->count(10)->create();
     }
 }

@@ -19,4 +19,8 @@ class Police extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function issue() {
+        return $this->hasMany(Issues::class, 'police_id');
+    }
 }

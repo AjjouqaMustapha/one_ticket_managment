@@ -29,34 +29,39 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Table Users</h5>
+        <h5 class="card-header">Light Table head</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
-                <thead>
+                <thead class="table-light">
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>id card</th>
-                        <th>Verified</th>
-                        <th>Created AT</th>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>User name</th>
+                        <th>Police Id</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($users as $user)
+                    @foreach ($issues as $issue)
                         <tr>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->id_card }}</td>
+                            <td><strong>{{ $issue->id }}</strong></td>
                             <td>
-                                @if ($user->email_verified_at)
-                                    <span class="badge bg-label-primary me-1">Active</span>
-                                @else
-                                    <span class="badge bg-label-primary me-1">Not yet</span>
-                                @endif
+                                {{  \Str::limit($issue->description,40) }}
                             </td>
                             <td>
-                                {{ $user->created_at->diffForHumans() }}
+                            {{ $issue->user->name }}
+                            </td>
+                            <td>
+                            {{ $issue->police->id }}
+
+                            </td>
+                            <td>
+                                @if ($issue->status == 0)
+                                    <span class="badge bg-label-danger me-1">Not Solved yet</span>
+                                @else
+                                    <span class="badge bg-label-success me-1">Solved</span>
+                                @endif
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -64,8 +69,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>
-                                            Edit</a>
+                                        <a class="dropdown-item" href="{{ route('issue.detail',$issue->id) }}"><i class="bx bx-file-find me-1"></i>
+                                            Details</a>
                                     </div>
                                 </div>
                             </td>

@@ -45,6 +45,10 @@ class User extends Authenticatable
     ];
 
     public function police (){
-        return $this->hasMany(Police::class);
+        return $this->hasMany(Police::class, 'user_id');
+    }
+
+    public function issue (){
+        return $this->hasMany(Issues::class, 'user_id');
     }
 }

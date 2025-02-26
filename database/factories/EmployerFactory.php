@@ -20,8 +20,15 @@ class EmployerFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'password' =>  Hash::make('ajjou123'),
-            'role'=> 'plombier',
+            'password' => Hash::make('ajjou123'),
+            'role' => $this->faker->randomElement([
+                "Plombier",
+                'Consultant',
+                'Technicien eau',
+                'Technicien electricite',
+                'Modir',
+                'mol Chi',
+            ]),
         ];
     }
 }
