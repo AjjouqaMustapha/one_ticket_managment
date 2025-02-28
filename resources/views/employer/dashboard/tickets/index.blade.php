@@ -1,0 +1,91 @@
+@extends('dashboard_layout.layout')
+
+
+<!-------Employer logout form-------->
+@section('logout')
+    <form method="POST" action="{{ route('employer.logout') }}">
+        @csrf
+        <button type="submit" class="btn">
+            <a class="dropdown-item">
+                <i class="bx bx-power-off me-2"></i>
+                <span class="align-middle">Log Out</span>
+            </a>
+    </form>
+@endsection
+<!-------End Employer logout form-------->
+
+
+<!-------Employer side menu-------->
+
+@section('menu')
+    @include('employer.dashboard.menu')
+@endsection
+
+<!-------End Employer side menu-------->
+
+
+
+
+
+
+@section('content')
+    <div class="card">
+        <div class="d-flex">
+            <div>
+                <h5 class="card-header">Table Issues</h5>
+            </div>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>User name</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @if (count($issues) == 0)
+                        <tr>
+                            <td colspan="5" class="text-center">No issues found</td>
+                        </tr>
+                    @else
+                        @foreach ($issues as $issue)
+                            <tr>
+                                <td><strong>{{ $issue->id }}</strong></td>
+                                <td>
+                                    {{  \Str::limit($issue->issue->description, 40) }}
+                                </td>
+                                <td>
+                                    {{ $issue->issue->user->name }}
+                                </td>
+                                <td>
+                                    @if ($issue->issue->status == 0)
+                                        <span class="badge bg-label-danger me-1">Not Solved yet</span>
+                                    @else
+                                        <span class="badge bg-label-success me-1">Solved</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('issue.detail.employer', $issue->issue->id) }}"><i
+                                                    class="bx bx-file-find me-1"></i>
+                                                Details</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endsection

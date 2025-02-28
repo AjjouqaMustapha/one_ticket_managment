@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\EmployerRole;
 use App\Models\Police;
 use App\Models\User;
 
@@ -27,6 +28,14 @@ class IssuesFactory extends Factory
                 return Police::where('id_card', $attributes['id_card'])->inRandomOrder()->first()->id ?? Police::factory()->create(['id_card' => $attributes['id_card']])->id;
             },
             'status' => 0,
+            'role' => fake()->randomElement([
+                "Plombier",
+                'Consultant',
+                'Technicien eau',
+                'Technicien electricite',
+                'Modir',
+                'mol Chi',
+            ]),
             'created_at' => now(),
         ];
     }

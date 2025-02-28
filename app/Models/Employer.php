@@ -39,4 +39,13 @@ class Employer extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function employerrole (){
+        return $this->belongsTo(EmployerRole::class, 'role');
+    }
+
+    public function employerissue (){
+        return $this->hasMany(EmployerIssues::class, 'id');
+    }
 }

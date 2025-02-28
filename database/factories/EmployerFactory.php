@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+use App\Models\EmployerRole;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employer>
  */
@@ -21,14 +22,7 @@ class EmployerFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => Hash::make('ajjou123'),
-            'role' => $this->faker->randomElement([
-                "Plombier",
-                'Consultant',
-                'Technicien eau',
-                'Technicien electricite',
-                'Modir',
-                'mol Chi',
-            ]),
+            'role' => EmployerRole::inRandomOrder()->first()->employer_role,
         ];
     }
 }

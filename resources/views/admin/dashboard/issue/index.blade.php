@@ -29,7 +29,11 @@
 
 @section('content')
     <div class="card">
-        <h5 class="card-header">Light Table head</h5>
+        <div class="d-flex">
+            <div>
+                <h5 class="card-header">Table Issues</h5>
+            </div>
+        </div>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <thead class="table-light">
@@ -47,13 +51,13 @@
                         <tr>
                             <td><strong>{{ $issue->id }}</strong></td>
                             <td>
-                                {{  \Str::limit($issue->description,40) }}
+                                {{  \Str::limit($issue->description, 40) }}
                             </td>
                             <td>
-                            {{ $issue->user->name }}
+                                {{ $issue->user->name }}
                             </td>
                             <td>
-                            {{ $issue->police->id }}
+                                {{ $issue->police->id }}
 
                             </td>
                             <td>
@@ -69,7 +73,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{{ route('issue.detail',$issue->id) }}"><i class="bx bx-file-find me-1"></i>
+                                        <a class="dropdown-item" href="{{ route('issue.detail', $issue->id) }}"><i
+                                                class="bx bx-file-find me-1"></i>
                                             Details</a>
                                     </div>
                                 </div>

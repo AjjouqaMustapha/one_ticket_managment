@@ -9,7 +9,7 @@ class Issues extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['description', 'user_id', 'police_id', 'status'];
+    protected $fillable = ['description', 'user_id', 'police_id', 'status','role'];
 
     public function user()
     {
@@ -19,6 +19,10 @@ class Issues extends Model
     public function police()
     {
         return $this->belongsTo(Police::class);
+    }
+
+    public function employerissue(){
+        return $this->hasMany(EmployerIssues::class,'id');
     }
 
 }

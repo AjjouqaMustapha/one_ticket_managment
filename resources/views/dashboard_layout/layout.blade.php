@@ -58,6 +58,7 @@
     <!-- Page CSS -->
 
     <!-- Helpers -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ asset('vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
@@ -192,8 +193,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
+                            <small class="text-muted">{{ Auth::guard()->name }}</small>
                           </div>
                         </div>
                       </a>
@@ -311,6 +312,8 @@
     <!-- Page JS -->
     <script src="{{ asset('js/dashboards-analytics.js') }}"></script>
 
+
+    @yield('js')
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmmployerRoleController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\EmployerIssueController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PoliceController;
 use App\Http\Controllers\ProfileController;
@@ -58,6 +60,9 @@ Route::prefix('admin')->group(function (){
 
     Route::get('/dashboard/Tickets',[IssueController::class, 'index'])->name('issue.index')->middleware(['auth:admin']);
     Route::get('/dashboard/Tickets/{id}',[IssueController::class, 'detail'])->name('issue.detail')->middleware(['auth:admin']);
+    Route::post('/dashboard/Tickets/Forward',[EmployerIssueController::class, 'store'])->name('issue.forward')->middleware(['auth:admin']);
+
+
 
 
 
@@ -96,7 +101,9 @@ Route::prefix('employer')->group(function (){
     /**-------------------------------End login and log out employer---------------------------------------------- */
 
     /**-------------------------------Dashboard---------------------------------------------- */
-    Route::get('/tickets',[TicketsController::class, 'Ticket'])->name('employer.ticket')->middleware(['auth:employer']);
+    Route::get('/dashboard/tickets',[EmployerController::class, 'Tickets'])->name('employer.ticket')->middleware(['auth:employer']);
+    Route::get('/dashboard/Tickets/{id}',[IssueController::class, 'detail'])->name('issue.detail.employer')->middleware(['auth:employer']);
+    Route::post('/dashboard/Tickets/{id}',[IssueController::class, 'solved'])->name('issue.solved.employer')->middleware(['auth:employer']);
     /**-------------------------------End Dashboard---------------------------------------------- */
 
     Route::get('/register',[EmployerController::class, 'Register'])->name('employer.register')->middleware(['guest']);

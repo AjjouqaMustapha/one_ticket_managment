@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EmployerIssues;
+use App\Models\Issues;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Runner\Baseline\Issue;
 
 
 class EmployerController extends Controller
@@ -28,9 +31,37 @@ class EmployerController extends Controller
 
     public function Dashboard()
     {
-        return view('employer/dashboard/index');
+        $tickets = EmployerIssues::query()->where('id_employer', Auth::user()->id)->count();
+        $tickets_pending = EmployerIssues::whereHas('issue', function ($query) {
+            $query->where('status', 0);
+        })
+            ->where('id_employer', Auth::user()->id)
+            ->count();
+
+        $tickets_solved = EmployerIssues::whereHas('issue', function ($query) {
+            $query->where('status', 1);
+        })
+            ->where('id_employer', Auth::user()->id)
+            ->count();
+        return view('employer/dashboard/index', compact('tickets', 'tickets_solved', 'tickets_pending'));
     }
 
+
+
+
+    public function Tickets()
+    {
+
+        $issues = EmployerIssues::whereHas('issue', function ($query) {
+            $query->whereColumn('id', 'id_issue'); 
+        })
+        ->where('id_employer', Auth::user()->id)
+        ->with(['issue.user'])
+        ->get();
+
+        
+        return view('employer/dashboard/tickets/index', compact('issues'));
+    }
 
 
 
