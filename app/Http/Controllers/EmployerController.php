@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\EmployerIssues;
 use App\Models\Issues;
+use App\Notifications\IssueAssigned;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PHPUnit\Runner\Baseline\Issue;
@@ -53,15 +55,18 @@ class EmployerController extends Controller
     {
 
         $issues = EmployerIssues::whereHas('issue', function ($query) {
-            $query->whereColumn('id', 'id_issue'); 
+            $query->whereColumn('id', 'id_issue');
         })
-        ->where('id_employer', Auth::user()->id)
-        ->with(['issue.user'])
-        ->get();
+            ->where('id_employer', Auth::user()->id)
+            ->with(['issue.user'])
+            ->get();
 
-        
+
         return view('employer/dashboard/tickets/index', compact('issues'));
     }
+
+
+    
 
 
 

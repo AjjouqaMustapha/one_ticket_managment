@@ -26,10 +26,10 @@
             </a>
         </li>
 
-        <li
-            class="menu-item  {{ request()->routeIs('users*') || request()->routeIs('admins*') || request()->routeIs('employers*') ? 'active open' : '' }}">
+
+        <li class="menu-item  {{ request()->routeIs('users*') || request()->routeIs('admins*') || request()->routeIs('employers*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bxs-user-account"></i>
+                <i class="menu-icon icon-base bx bxs-user-account"></i>
                 <div data-i18n="Layouts">Users</div>
             </a>
 

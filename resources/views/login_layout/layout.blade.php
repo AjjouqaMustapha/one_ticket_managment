@@ -122,6 +122,7 @@
                 </a>
               </div>
               <!-- /Logo -->
+               
               @yield('content')
 
               <p class="text-center">

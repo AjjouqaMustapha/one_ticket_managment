@@ -6,12 +6,11 @@
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-        
 
         <li class="menu-item {{ request()->routeIs('employer.ticket') ? 'active open' : '' }}">
             <a href="{{ route('employer.ticket') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bxs-discount"></i>
-                <div data-i18n="Analytics">Tickets</div>
+                <div data-i18n="Analytics">My Tickets</div>
             </a>
         </li>
 

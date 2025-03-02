@@ -7,9 +7,10 @@ use App\Http\Controllers\EmployerIssueController;
 use App\Http\Controllers\IssueController;
 use App\Http\Controllers\PoliceController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +110,7 @@ Route::prefix('employer')->group(function (){
     Route::get('/register',[EmployerController::class, 'Register'])->name('employer.register')->middleware(['guest']);
     Route::post('/register',[EmployerController::class, 'Store'])->name('employer.store')->middleware(['guest']);
     Route::get('/profile',[EmployerController::class, 'Profile'])->name('employer.profile')->middleware(['auth:employer']);
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.read')->middleware(['auth:employer']);
 });
 
 
@@ -118,11 +120,17 @@ Route::prefix('employer')->group(function (){
 
 
 
+/* ---------------------- User route ---------------------- */
+Route::prefix('user')->group(function (){
+    /**-------------------------------Dashboard---------------------------------------------- */
+    Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('user.dashboard')->middleware('auth');
+    Route::get('/dashboard/police/{id}', [UsersController::class, 'police'])->name('user.police')->middleware('auth');
+
+    /**-------------------------------End Dashboard---------------------------------------------- */
+});
+/* -------------------- End Employer route -------------------- */
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

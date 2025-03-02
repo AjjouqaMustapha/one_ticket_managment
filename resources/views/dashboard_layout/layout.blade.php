@@ -174,7 +174,63 @@
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
+
+
                 <!-- Place this tag where you want the button to render. -->
+                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+                  <a id="notificationBell"  class="nav-link dropdown-toggle hide-arrow " href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="true">
+                  <span class="position-relative">
+                    <i class="icon-base bx bx-bell icon-md"></i>
+                      @if(auth()->user()->unreadNotifications->count() > 0)
+                        <span class="badge rounded-pill bg-danger badge-dot badge-notifications border"></span>
+                      @endif
+                  </span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end p-0 " data-bs-popper="static">
+                    <li class="dropdown-menu-header border-bottom">
+                      <div class="dropdown-header d-flex align-items-center py-3">
+                        <h6 class="mb-0 me-auto">Notification</h6>
+                        <div class="d-flex align-items-center h6 mb-0">
+                          <span class="badge bg-label-primary me-2">{{ auth()->user()->notifications->count() }}</span>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="dropdown-notifications-list scrollable-container ps ps--active-y">
+                      <ul class="list-group list-group-flush">
+                      @if(auth()->user()->notifications->count() == 0)
+            <li class="list-group-item list-group-item-action dropdown-notifications-item">
+              <div class="d-flex">
+              <div class="flex-grow-1">
+              <h6 class="small mb-0">No Notification Yet</h6>
+              </div>
+              </div>
+              </a>
+            </li>
+          @else
+          @foreach(auth()->user()->notifications as $notification)
+      <li class="list-group-item list-group-item-action dropdown-notifications-item">
+      <a href="{{ route('issue.detail.employer', $notification->data['issue_id']) }}">
+      <div class="d-flex">
+        <div class="flex-grow-1">
+        <h6 class="small mb-0">New issue</h6>
+        <small class="mb-1 d-block text-body">{{ $notification->data['message'] }}</small>
+        <small class="text-body-secondary">{{ $notification->created_at->diffForHumans() }}</small>
+        </div>
+        <div class="flex-shrink-0 dropdown-notifications-actions">
+        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="icon-base bx bx-x"></span></a>
+        </div>
+      </div>
+      </a>
+      </li>
+    @endforeach
+
+    @endif
+                      
+                      </ul>
+                  </ul>
+                </li>
+
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -316,5 +372,21 @@
     @yield('js')
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#notificationBell").click(function () {
+          $.ajax({
+            url: "{{ route('notifications.read') }}",
+            type: "POST",
+            data: { _token: "{{ csrf_token() }}" },
+            success: function () {
+              $(".badge-notifications").fadeOut(); // Katnahi dik notch l7emra
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>

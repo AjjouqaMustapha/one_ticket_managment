@@ -44,6 +44,8 @@ class AdminController extends Controller
         return view('admin/dashboard/index', compact('total_users', 'total_issues', 'total_employer', 'total_polices', 'issus', 'issus_solved', 'issus_pending', 'solving_rate'));
     }
 
+
+
     public function Logout()
     {
         Auth::guard('admin')->logout();
